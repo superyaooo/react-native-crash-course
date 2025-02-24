@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
-const RootLayout = () => {
+const RootLayout = (): JSX.Element | null => {
   const [fontsLoaded, error] = useFonts({
 			'Poppins-Black': require('../assets/fonts/Poppins-Black.ttf'),
 			'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
@@ -21,7 +21,7 @@ const RootLayout = () => {
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-  }, [fontsLoaded, error])
+  }, [fontsLoaded, error]);
 
   if (!fontsLoaded && !error) return null;
 

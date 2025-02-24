@@ -1,6 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "jsx": "react-jsx"   // Enables React JSX transform; No longer need to import React in each file that uses JSX
   }
 }
