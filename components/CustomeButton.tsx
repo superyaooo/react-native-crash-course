@@ -2,7 +2,7 @@ import { TouchableOpacity, Text } from 'react-native'
 
 interface CustomeButtonProps {
 	title: string;
-	handlePress: any;
+	handlePress: () => void;
     containerStyles: string;
     textStyles?: string;
     isLoading?: boolean;
