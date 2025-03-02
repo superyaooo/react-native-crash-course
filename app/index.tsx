@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { ScrollView, Text, View, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
-import CustomeButton from '../components/CustomeButton';
+import CustomButton from '../components/CustomButton';
 import { router } from 'expo-router';
 
 export default function App(): JSX.Element {
@@ -35,7 +35,7 @@ export default function App(): JSX.Element {
                     <Text className='text-sm font-pregular text-gray-100 mt-7 text-center'>Where creativity meets innovation: embark on a journey of limitless exploration
                     </Text>
 
-                    <CustomeButton
+                    <CustomButton
                         title='Continue with Email'
                         handlePress={() => router.push('/sign-in')}
                         containerStyles='w-full mt-7'

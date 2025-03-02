@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text } from 'react-native'
 
-interface CustomeButtonProps {
+interface CustomButtonProps {
 	title: string;
 	handlePress: () => void;
     containerStyles: string;
@@ -8,7 +8,7 @@ interface CustomeButtonProps {
     isLoading?: boolean;
 }
 
-const CustomeButton = ({ title, handlePress, containerStyles, textStyles, isLoading } : CustomeButtonProps): JSX.Element => {
+const CustomButton = ({ title, handlePress, containerStyles, textStyles, isLoading } : CustomButtonProps): JSX.Element => {
   return (
       <TouchableOpacity
           onPress={handlePress}
@@ -23,4 +23,4 @@ const CustomeButton = ({ title, handlePress, containerStyles, textStyles, isLoad
   )
 }
 
-export default CustomeButton 
+export default CustomButton 
