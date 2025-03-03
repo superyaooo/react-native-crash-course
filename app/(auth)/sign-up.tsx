@@ -1,21 +1,65 @@
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
 import { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { createUser, CreateUserProps } from '../../lib/appwrite'
 
-const SignUp = () => {
-	const [form, setForm] = useState({
+interface FormState {
+  username: string;
+  email: string;
+  password: string;
+}
+
+const SignUp = (): JSX.Element => {
+	const [form, setForm] = useState<FormState>({
 		username: '',
     email: '',
 		password: '',
 	});
 
-	const [isSubmitting, setisSubmitting] = useState(false);
+	const [isSubmitting, setisSubmitting] = useState<boolean>(false);
 
-	const submit = () => {};
+  const validateForm = (): boolean => {
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return false;
+    }
+
+    if (form.password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters');
+      return false;
+    }
+
+    return true;
+  }
+
+  const submit = async(): Promise<void> => {
+    if (!validateForm()) {
+      return;     // prevent submission is form invalid
+    }
+
+    setisSubmitting(true);
+    
+    try {
+      let userCreds: CreateUserProps = {
+        email: form.email,
+        password: form.password,
+        username: form.username
+      }
+      const result = await createUser(userCreds);
+      // set it to global state in future
+
+      router.replace('/home')
+
+    } catch (error: any) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setisSubmitting(false)
+    }
+  };
 
 	return (
 		<SafeAreaView className='bg-primary h-full'>
@@ -52,7 +96,7 @@ const SignUp = () => {
 					/>
 
 					<CustomButton
-						title='Sign In'
+						title='Sign Up'
 						handlePress={submit}
 						containerStyles='mt-7'
 						isLoading={isSubmitting}

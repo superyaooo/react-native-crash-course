@@ -1,21 +1,54 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
 import { useState } from 'react'
 import CustomButton from '../../components/CustomButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import { EmailPasswordProps, signIn } from '../../lib/appwrite'
 
-const SignIn = () => {
-  const [form, setForm] = useState({
+interface FormState {
+  email: string;
+  password: string;
+}
+
+const SignIn = ():JSX.Element => {
+  const [form, setForm] = useState<FormState>({
     email: '',
     password: ''
   })
 
-  const [isSubmitting, setisSubmitting] = useState(false)
+  const [isSubmitting, setisSubmitting] = useState<boolean>(false)
 
-  const submit = () => {
+  const validateForm = (): boolean => {
+    if (!form.email || !form.password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return false;
+    }
 
+    return true;
+  }
+
+  const submit = async(): Promise<void> => {
+    if (!validateForm) {
+      return;
+    }
+
+    setisSubmitting(true);
+
+    try {
+      let userCreds: EmailPasswordProps = {
+        email: form.email,
+        password: form.password
+      }
+      await signIn(userCreds);
+
+      router.replace('/home');
+    } catch (error: any) {
+      Alert.alert('Error', error.message)
+    } finally {
+      setisSubmitting(false);
+    }
   }
 
   return (
