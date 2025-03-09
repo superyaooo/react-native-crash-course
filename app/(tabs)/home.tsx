@@ -13,7 +13,6 @@ import Trending, { Post, TrendingProps } from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
 import { useEffect, useState } from 'react';
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
-import { Models } from 'react-native-appwrite';
 import useAppwrite from '../../lib/UseAppwrite';
 import VideoCard from '../../components/VideoCard';
 
@@ -29,7 +28,7 @@ const Home = (): JSX.Element => {
 		setRefreshing(false);
 	};
 
-	const transformedPosts: TrendingProps = latestPosts.map((post) => ({
+	const transformedPosts: Post[] = latestPosts.map((post) => ({
 		id: post.$id,
 		title: post.title,
 		thumbnail: post.thumbnail,
