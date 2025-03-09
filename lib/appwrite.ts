@@ -88,3 +88,15 @@ export async function getCurrentUser(): Promise<Models.Document | void> {
         console.log(error);
     }
 }
+
+export const getAllPosts = async (): Promise<Models.Document[]> => {
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.videoCollectionId
+        )
+        return posts.documents;
+    } catch (error: any) {
+        throw new Error(error);
+    }
+}
