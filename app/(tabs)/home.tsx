@@ -66,7 +66,7 @@ const Home = (): JSX.Element => {
 							</View>
 						</View>
 
-						<SearchInput placeholder='Search for a video topic' />
+						<SearchInput initialQuery='' />
 
 						<View className='w-full flex-1 pt-5 pb-8'>
 							<Text className='text-gray-100 text-lg font-pregular mb-3'>

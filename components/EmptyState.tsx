@@ -14,8 +14,7 @@ const EmptyState = ({ title, subtitle }: EmptyStateProps): JSX.Element => {
             <Image
             source={images.empty}
             className='w-[270px] h-[215px]'
-            resizeMode='contain'
-        />
+            resizeMode='contain'/>
         <Text className='font-pmedium text-sm text-gray-100'>
             {title}
         </Text>

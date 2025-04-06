@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { Models } from 'react-native-appwrite';
 
@@ -15,7 +15,7 @@ const useAppwrite = (fn: FetchFunction): UseAppwriteResult => {
   const [data, setData] = useState<Models.Document[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	
-  const fetchData = async (): Promise<void> => {
+  const fetchData = useCallback(async (): Promise<void> => {
       setIsLoading(true);
 
       try {
@@ -26,11 +26,11 @@ const useAppwrite = (fn: FetchFunction): UseAppwriteResult => {
       } finally {
         setIsLoading(false);
       }
-  };
+  }, [fn]);
   
 	useEffect(() => {
 		fetchData();
-	}, [fn]);
+	}, [fetchData]);
 
   const refetch = async (): Promise<void> => {
     await fetchData();
